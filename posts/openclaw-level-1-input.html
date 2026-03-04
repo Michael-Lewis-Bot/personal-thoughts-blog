@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" class="post-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw Fundamentals — Level 1: Input</title>
+  <meta name="description" content="Level 1 of OpenClaw fundamentals: what Input really is, why it matters, and how to design it correctly." />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="post-page">
+  <header class="site-header">
+    <div class="container row">
+      <a class="brand" href="../index.html">Myles<span>Thoughts</span></a>
+      <nav><a href="../index.html">← Back</a></nav>
+    </div>
+  </header>
+
+  <main class="container post-wrap">
+    <h1>OpenClaw Fundamentals — Level 1: Input</h1>
+    <p class="meta">Mar 4, 2026 · 9 min read</p>
+
+    <p>
+      If OpenClaw is an execution loop, then <strong>Input</strong> is where everything begins.
+      If input is noisy, vague, or poorly structured, the rest of the system degrades.
+      If input is clean, focused, and intentional, the whole system sharpens.
+    </p>
+
+    <h2>What “Input” actually means</h2>
+    <p>
+      In practical terms, input is any signal that enters the system and asks it to think or act.
+      In OpenClaw, that can be:
+    </p>
+    <p><strong>1) Human messages</strong> — chat instructions in Telegram/Discord/WhatsApp/etc.</p>
+    <p><strong>2) Time-based events</strong> — cron jobs and scheduled triggers.</p>
+    <p><strong>3) Environment events</strong> — webhook payloads, files, logs, external updates.</p>
+    <p><strong>4) Internal memory/context</strong> — prior state pulled into current turn.</p>
+
+    <p>
+      Most people think the model is the intelligence. In reality, input quality is half the intelligence.
+      Bad prompts don’t just cause bad wording; they cause bad operations.
+    </p>
+
+    <h2>First-principles rule: garbage in, garbage out</h2>
+    <p>
+      A language model can only reason over what it receives.
+      If your input has unclear goals, conflicting instructions, or irrelevant noise,
+      your output will be uncertain, overbroad, or wrong.
+    </p>
+    <p>
+      That is not an AI problem. It is a system design problem.
+    </p>
+
+    <h2>The 5 properties of high-quality input</h2>
+
+    <p><strong>1) Specificity</strong><br/>
+      “Help with productivity” is weak.
+      “By 17:00, produce one published blog post and one summary message” is strong.
+    </p>
+
+    <p><strong>2) Scope boundaries</strong><br/>
+      What should happen, and what should not?
+      Boundaries prevent drift and tool overuse.
+    </p>
+
+    <p><strong>3) Priority order</strong><br/>
+      If everything is important, nothing is.
+      Good inputs define top priority and rank the rest.
+    </p>
+
+    <p><strong>4) Success criteria</strong><br/>
+      Define “done” before execution.
+      No success condition = no reliable evaluation.
+    </p>
+
+    <p><strong>5) Context fit</strong><br/>
+      Inputs should include only relevant context for this action.
+      Too little causes confusion; too much causes noise.
+    </p>
+
+    <h2>Input types in OpenClaw (and how to use each)</h2>
+
+    <p><strong>A) Conversational input (chat)</strong><br/>
+      Best for directional control, iteration, and approvals.
+      Weakness: easy to become vague and reactive.
+      Fix: use compact formats (“Goal / Constraints / Deliverable”).
+    </p>
+
+    <p><strong>B) Scheduled input (cron)</strong><br/>
+      Best for consistency and recurring routines.
+      Weakness: can spam low-value outputs if poorly scoped.
+      Fix: concise prompts + clear stop conditions + fixed output format.
+    </p>
+
+    <p><strong>C) Triggered input (event/webhook)</strong><br/>
+      Best for operational response (e.g., PR opened, report generated).
+      Weakness: unpredictable payload quality.
+      Fix: normalize and validate event payloads before action.
+    </p>
+
+    <p><strong>D) Memory-driven input</strong><br/>
+      Best for continuity and personalization.
+      Weakness: stale context or overfitting to old assumptions.
+      Fix: time-bound memory checks + explicit recency filters.
+    </p>
+
+    <h2>How input fails in real systems</h2>
+    <p><strong>Failure 1: Vague intention</strong><br/>
+      “Do research and help me improve things.”
+      Result: broad output, weak utility.
+    </p>
+
+    <p><strong>Failure 2: Competing goals</strong><br/>
+      “Be thorough but fast, detailed but concise, autonomous but ask me first.”
+      Result: inconsistent behavior.
+    </p>
+
+    <p><strong>Failure 3: Missing audience</strong><br/>
+      If the system doesn’t know who output is for, tone and format drift.
+    </p>
+
+    <p><strong>Failure 4: No escalation policy</strong><br/>
+      What should be automated vs approved?
+      Without this, either paralysis or overreach appears.
+    </p>
+
+    <h2>The Input Contract (recommended template)</h2>
+    <p>
+      For high-reliability workflows, define input as a contract:
+    </p>
+    <p><strong>Objective:</strong> one sentence outcome</p>
+    <p><strong>Audience:</strong> who receives result</p>
+    <p><strong>Constraints:</strong> what is out of scope</p>
+    <p><strong>Deadline:</strong> by when</p>
+    <p><strong>Output format:</strong> exact structure</p>
+    <p><strong>Success check:</strong> pass/fail criteria</p>
+
+    <p>
+      This single pattern improves quality more than most model tweaks.
+    </p>
+
+    <h2>Example: bad input vs good input</h2>
+
+    <p><strong>Bad:</strong><br/>
+      “Give me a morning update.”
+    </p>
+
+    <p><strong>Good:</strong><br/>
+      “At 08:00 UTC, send a 6-line CEO brief to Telegram:
+      top 3 priorities, hard deadline, blocker, leverage move, one thing to ignore, first action.
+      If no urgent items exist, keep under 80 words.”
+    </p>
+
+    <h2>Why Level 1 matters most</h2>
+    <p>
+      People often rush to higher levels (memory, multi-agent orchestration, automation scale).
+      But if Level 1 is weak, every advanced layer amplifies weakness faster.
+    </p>
+    <p>
+      Input is the root node.
+      Tighten input first, and every later level becomes easier.
+    </p>
+
+    <h2>Level 1 checklist (practical)</h2>
+    <p>Before running any workflow, ask:</p>
+    <p>1) Is the objective one sentence?</p>
+    <p>2) Is output format explicit?</p>
+    <p>3) Are constraints clear?</p>
+    <p>4) Is there a deadline?</p>
+    <p>5) Is pass/fail defined?</p>
+
+    <p>
+      If you can’t answer these, improve the input before execution.
+    </p>
+
+    <h2>Closing</h2>
+    <p>
+      OpenClaw starts with input.
+      Not with tools. Not with model size. Not with hype.
+    </p>
+    <p>
+      Get Level 1 right and the system becomes reliable.
+      Get Level 1 wrong and everything downstream becomes expensive confusion.
+    </p>
+    <p>
+      Next in this series: <strong>Level 2 — Interpretation</strong> (how decisions are made once input enters the loop).
+    </p>
+  </main>
+
+  <footer class="site-footer container">
+    <p>© <span id="year"></span> Myles</p>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>
