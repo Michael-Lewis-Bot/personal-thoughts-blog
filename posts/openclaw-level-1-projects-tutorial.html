@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" class="post-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenClaw Level 1 Tutorial: 3 Input-First Projects</title>
+  <meta name="description" content="A simple tutorial with three beginner OpenClaw projects focused on Level 1 Input design." />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="post-page">
+  <header class="site-header">
+    <div class="container row">
+      <a class="brand" href="../index.html">Myles<span>Thoughts</span></a>
+      <nav><a href="../index.html">← Back</a></nav>
+    </div>
+  </header>
+
+  <main class="container post-wrap">
+    <h1>OpenClaw Level 1 Tutorial: 3 Input-First Projects</h1>
+    <p class="meta">Mar 4, 2026 · 10 min read</p>
+
+    <p>
+      In the last article, I broke down Level 1 of OpenClaw fundamentals: <strong>Input</strong>.
+      This tutorial turns that into action.
+    </p>
+    <p>
+      You’ll build three beginner projects where the whole point is to design clean input.
+      No fancy multi-agent setup. No complexity theater.
+    </p>
+
+    <h2>Before you start (2-minute setup)</h2>
+    <p>Make sure OpenClaw is running and connected to your chat channel.</p>
+    <p>Quick checks:</p>
+    <pre><code>openclaw status --deep
+openclaw cron list --json</code></pre>
+
+    <p>
+      Core principle for every project:
+      <strong>one objective, one format, one success check.</strong>
+    </p>
+
+    <h2>Project 1 — Daily 3-Line Morning Brief</h2>
+    <p><strong>Goal:</strong> receive one concise daily input packet, not a wall of text.</p>
+
+    <h3>Input contract</h3>
+    <p><strong>Objective:</strong> Start day with clarity.</p>
+    <p><strong>Output format:</strong> exactly 3 lines:</p>
+    <p>1) Top priority</p>
+    <p>2) Biggest blocker</p>
+    <p>3) First action now</p>
+    <p><strong>Success check:</strong> readable in under 30 seconds.</p>
+
+    <h3>Steps</h3>
+    <p>1) Create/confirm a cron job at your morning time.</p>
+    <p>2) Set prompt to enforce strict 3-line output.</p>
+    <p>3) Run for 3 days and score usefulness from 1–10.</p>
+    <p>4) If score &lt; 7, tighten prompt and remove fluff.</p>
+
+    <p><strong>Simple prompt template:</strong></p>
+    <pre><code>Send a 3-line morning brief.
+Line 1: Top priority today.
+Line 2: Biggest blocker.
+Line 3: First action to take now.
+Keep under 45 words total.</code></pre>
+
+    <h2>Project 2 — Voice Note to Action List</h2>
+    <p><strong>Goal:</strong> turn unstructured spoken ideas into structured tasks.</p>
+
+    <h3>Input contract</h3>
+    <p><strong>Objective:</strong> capture ideas fast without losing follow-through.</p>
+    <p><strong>Input type:</strong> audio note.</p>
+    <p><strong>Output format:</strong></p>
+    <p>- Summary (1 sentence)</p>
+    <p>- Actions (max 5 bullets)</p>
+    <p>- Next action (single step under 10 minutes)</p>
+    <p><strong>Success check:</strong> at least one action executed same day.</p>
+
+    <h3>Steps</h3>
+    <p>1) Send one voice note to OpenClaw chat.</p>
+    <p>2) Use transcription pipeline (Whisper skill/tooling).</p>
+    <p>3) Force structured extraction into fixed template.</p>
+    <p>4) Track: did one action happen?</p>
+
+    <p><strong>Prompt template:</strong></p>
+    <pre><code>Transcribe this voice note and output exactly:
+1) One-sentence summary
+2) Up to 5 action bullets
+3) One next action under 10 minutes</code></pre>
+
+    <h2>Project 3 — Idea Vault Capture (No Execution)</h2>
+    <p><strong>Goal:</strong> reduce idea-chaos by separating capture from execution.</p>
+
+    <h3>Input contract</h3>
+    <p><strong>Objective:</strong> store ideas without breaking focus.</p>
+    <p><strong>Input type:</strong> any message that starts with “Idea:”.</p>
+    <p><strong>Output format:</strong> append to one page with:</p>
+    <p>- Idea title</p>
+    <p>- Why it matters</p>
+    <p>- Status: Parked</p>
+    <p><strong>Success check:</strong> no immediate context-switching after capture.</p>
+
+    <h3>Steps</h3>
+    <p>1) Create one Notion page called “Idea Vault”.</p>
+    <p>2) For every new idea, append using fixed structure.</p>
+    <p>3) Review weekly and choose only one to activate.</p>
+
+    <p><strong>Prompt template:</strong></p>
+    <pre><code>Capture this as a parked idea in Idea Vault.
+Format:
+- Title
+- Why it matters
+- Status: Parked
+Do not execute it now.</code></pre>
+
+    <h2>How to know Level 1 is working</h2>
+    <p>You’re winning if:</p>
+    <p>1) outputs are consistently short and useful</p>
+    <p>2) you can explain the format before run</p>
+    <p>3) results are measurable (not vibes-only)</p>
+
+    <h2>Common mistakes</h2>
+    <p><strong>Mistake 1:</strong> trying to automate too much too early.</p>
+    <p><strong>Mistake 2:</strong> no output format specified.</p>
+    <p><strong>Mistake 3:</strong> changing prompts daily without scorecard feedback.</p>
+
+    <h2>One-week practice plan</h2>
+    <p><strong>Day 1–2:</strong> project 1 only</p>
+    <p><strong>Day 3–4:</strong> add project 2</p>
+    <p><strong>Day 5–7:</strong> add project 3 + weekly vault review</p>
+
+    <p>
+      Keep it simple.
+      Input quality first.
+      Everything else later.
+    </p>
+  </main>
+
+  <footer class="site-footer container">
+    <p>© <span id="year"></span> Myles</p>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>
